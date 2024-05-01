@@ -1,50 +1,494 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ButtonLink from "../components/ButtonLink.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/pages/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+    />
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        /* background-color: #0b0b0b !important; */
+        /* background-image: radial-gradient(
+          hsla(0, 0%, 100%, 0.275) 1px,
+          #0b0b0b 0
+        ); */
+        background-size: 2rem 2rem;
+        font-size: 16px;
+        font-family:
+          DM Sans,
+          sans-serif !important;
+      }
+
+      .navbar a.active span {
+        --tw-text-opacity: 1;
+        color: rgb(226 232 240 / var(--tw-text-opacity)) !important;
+      }
+
+      .navbar a.active .nav-indicator {
+        --tw-bg-opacity: 1;
+        background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+        width: 4rem;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-slate-900 leading-relaxed text-slate-400 antialiased selection:bg-indigo-200 selection:text-indigo-600">
+    <!-- <Header /> -->
+    <div
+      class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
+      <div class="lg:flex lg:justify-between lg:gap-4">
+        <header class="lg:sticky lg:top-0 lg:max-h-screen lg:w-1/2">
+          <div class="h-full flex flex-col justify-center">
+            <h1
+              class="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
+              Ng Wai Ming
+            </h1>
+            <h2
+              class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 block mt-3 text-lg font-medium tracking-tight sm:text-xl">
+              Frontend Developer
+            </h2>
+            <p>
+              I build pixel-perfect, engaging, and accessible digital
+              experiences.
+            </p>
+
+            <nav class="navbar mt-5 hidden lg:block">
+              <ul>
+                <li class="my-5">
+                  <a
+                    href="#about"
+                    class="group flex items-center">
+                    <div
+                      class="nav-indicator w-8 h-px bg-slate-500 mr-4 group-hover:bg-slate-200 group-hover:w-16">
+                    </div>
+                    <span
+                      class="font-bold uppercase text-sm text-slate-500 group-hover:text-slate-200"
+                      >About</span
+                    >
+                  </a>
+                </li>
+                <li class="my-5">
+                  <a
+                    href="#experience"
+                    class="group flex items-center">
+                    <div
+                      class="nav-indicator w-8 h-px bg-slate-500 mr-4 group-hover:bg-slate-200 group-hover:w-16 transition">
+                    </div>
+                    <span
+                      class="font-bold uppercase text-sm text-slate-500 group-hover:text-slate-200 transition"
+                      >Experience</span
+                    >
+                  </a>
+                </li>
+                <li class="my-5">
+                  <a
+                    href="#projects"
+                    class="group flex items-center">
+                    <div
+                      class="nav-indicator w-8 h-px bg-slate-500 mr-4 group-hover:bg-slate-200 group-hover:w-16 transition">
+                    </div>
+                    <span
+                      class="font-bold uppercase text-sm text-slate-500 group-hover:text-slate-200 transition"
+                      >Projects</span
+                    >
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <ul class="flex gap-x-6 mt-4 lg:mt-10">
+              <li>
+                <a
+                  title="Github"
+                  class="text-slate-500 hover:text-slate-200 transition"
+                  target="_blank"
+                  href="https://github.com/Viol3tStar">
+                  <span class="sr-only">Go to GitHub repo</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    class="h-6 w-6"
+                    aria-hidden="true"
+                    ><path
+                      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                    ></path></svg
+                  >
+                </a>
+              </li>
+              <li>
+                <a
+                  title="LinkedIn"
+                  class="text-slate-500 hover:text-slate-200 transition"
+                  target="_blank"
+                  href="">
+                  <span class="sr-only">Go to LinkedIn</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="h-6 w-6"
+                    aria-hidden="true"
+                    ><path
+                      d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+                    ></path></svg
+                  >
+                </a>
+              </li>
+              <li>
+                <a
+                  title="Instagram"
+                  class="text-slate-500 hover:text-slate-200 transition"
+                  target="_blank"
+                  href="">
+                  <span class="sr-only">Go to Instagram</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1000 1000"
+                    fill="currentColor"
+                    class="h-6 w-6"
+                    aria-hidden="true"
+                    ><path
+                      d="M295.42,6c-53.2,2.51-89.53,11-121.29,23.48-32.87,12.81-60.73,30-88.45,57.82S40.89,143,28.17,175.92c-12.31,31.83-20.65,68.19-23,121.42S2.3,367.68,2.56,503.46,3.42,656.26,6,709.6c2.54,53.19,11,89.51,23.48,121.28,12.83,32.87,30,60.72,57.83,88.45S143,964.09,176,976.83c31.8,12.29,68.17,20.67,121.39,23s70.35,2.87,206.09,2.61,152.83-.86,206.16-3.39S799.1,988,830.88,975.58c32.87-12.86,60.74-30,88.45-57.84S964.1,862,976.81,829.06c12.32-31.8,20.69-68.17,23-121.35,2.33-53.37,2.88-70.41,2.62-206.17s-.87-152.78-3.4-206.1-11-89.53-23.47-121.32c-12.85-32.87-30-60.7-57.82-88.45S862,40.87,829.07,28.19c-31.82-12.31-68.17-20.7-121.39-23S637.33,2.3,501.54,2.56,348.75,3.4,295.42,6m5.84,903.88c-48.75-2.12-75.22-10.22-92.86-17-23.36-9-40-19.88-57.58-37.29s-28.38-34.11-37.5-57.42c-6.85-17.64-15.1-44.08-17.38-92.83-2.48-52.69-3-68.51-3.29-202s.22-149.29,2.53-202c2.08-48.71,10.23-75.21,17-92.84,9-23.39,19.84-40,37.29-57.57s34.1-28.39,57.43-37.51c17.62-6.88,44.06-15.06,92.79-17.38,52.73-2.5,68.53-3,202-3.29s149.31.21,202.06,2.53c48.71,2.12,75.22,10.19,92.83,17,23.37,9,40,19.81,57.57,37.29s28.4,34.07,37.52,57.45c6.89,17.57,15.07,44,17.37,92.76,2.51,52.73,3.08,68.54,3.32,202s-.23,149.31-2.54,202c-2.13,48.75-10.21,75.23-17,92.89-9,23.35-19.85,40-37.31,57.56s-34.09,28.38-57.43,37.5c-17.6,6.87-44.07,15.07-92.76,17.39-52.73,2.48-68.53,3-202.05,3.29s-149.27-.25-202-2.53m407.6-674.61a60,60,0,1,0,59.88-60.1,60,60,0,0,0-59.88,60.1M245.77,503c.28,141.8,115.44,256.49,257.21,256.22S759.52,643.8,759.25,502,643.79,245.48,502,245.76,245.5,361.22,245.77,503m90.06-.18a166.67,166.67,0,1,1,167,166.34,166.65,166.65,0,0,1-167-166.34"
+                    ></path></svg
+                  >
+                </a>
+              </li>
+              <li>
+                <a
+                  title="X (Twitter)"
+                  class="text-slate-500 hover:text-slate-200 transition"
+                  target="_blank"
+                  href="">
+                  <span class="sr-only">Go to X (Twitter)</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1200 1227"
+                    fill="none"
+                    class="h-5 w-5"
+                    aria-hidden="true"
+                    ><path
+                      d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                      fill="currentColor"
+                    ></path></svg
+                  >
+                </a>
+              </li>
+            </ul>
+          </div>
+        </header>
+
+        <main>
+          <section
+            id="about"
+            aria-label="about">
+            <div class="flex flex-row items-center">
+              <!-- <img
+                width={150}
+                height={150}
+                src="/my-animoji.png"
+                alt=""
+              /> -->
+              <div class="flex flex-col p-4">
+                <span
+                  class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
+                  >About</span
+                >
+
+                <p>
+                  Back in 2012, I decided to try my hand at creating custom
+                  Tumblr themes and tumbled head first into the rabbit hole of
+                  coding and web development. Fast-forward to today, and I’ve
+                  had the privilege of building software for an advertising
+                  agency, a start-up, a huge corporation, and a digital product
+                  studio. My main focus these days is building accessible user
+                  interfaces for our customers at Klaviyo. I most enjoy building
+                  software in the sweet spot where design and engineering meet —
+                  things that look good but are also built well under the hood.
+                  In my free time, I've also released an online video course
+                  that covers everything you need to know to build a web app
+                  with the Spotify API. When I’m not at the computer, I’m
+                  usually rock climbing, reading, hanging out with my wife and
+                  two cats, or running around Hyrule searching for Korok seeds K
+                  o r o k s e e d s .
+                </p>
+                <div class="flex gap-x-3 mb-2">
+                  <ButtonLink
+                    title="LinkedIn"
+                    link="www.google.com"
+                    icon="linkedin-rounded-svgrepo-com.svg"
+                  />
+                  <ButtonLink
+                    title="Github"
+                    link="www.google.com"
+                    icon="linkedin-rounded-svgrepo-com.svg"
+                  />
+                  <ButtonLink
+                    title="Mail"
+                    link="www.google.com"
+                    icon="linkedin-rounded-svgrepo-com.svg"
+                  />
+                </div>
+
+                <p class="text-gray-400 text-lg mb-0">
+                  Hi, I am Wai Ming, experienced frontend developer from
+                  Malaysia, with 3 years+ of expertise in Angular, and Flutter.
+                  Ready to create innovative web or mobile app solutions!
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="experience"
+            aria-label="experience"
+            class="experience mt-20">
+            <div class="flex flex-col gap-y-4">
+              <span
+                class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
+                >Experience</span
+              >
+              <div class="group">
+                <div
+                  class="experience-info border border-transparent rounded-lg shadow-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div class="exp-duration text-sm text-slate-500 w-1/4 pt-1">
+                      Jan 2023 - Present <br /> (1 yr 2 mos)
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-lg group-hover:text-indigo-500">
+                        Software Engineer · Moabi PLT
+                      </p>
+                      <p>
+                        Build, style, and ship high·quality websites, design
+                        systems, mobile apps, and cross platform digital
+                        experiences for a diverse array of clients using
+                        technologies such as JavaScript, TypeScript, React, CSS,
+                        WordPress, Contentful, and more Lead the development and
+                        architecture of technical tools like content management
+                        systems, REST APIs, and continuous integration pipelines
+                        to fulfill business requirement
+                      </p>
+                      <div class="flex gap-x-3 mb-2">
+                        <ButtonLink
+                          title="LinkedIn"
+                          link="www.google.com"
+                          icon="linkedin-rounded-svgrepo-com.svg"
+                        />
+                        <ButtonLink
+                          title="Github"
+                          link="www.google.com"
+                          icon="linkedin-rounded-svgrepo-com.svg"
+                        />
+                        <ButtonLink
+                          title="Mail"
+                          link="www.google.com"
+                          icon="linkedin-rounded-svgrepo-com.svg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="group">
+                <div
+                  class="experience-info border border-transparent rounded-lg shadow-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div class="exp-duration text-sm text-slate-500 w-1/4 pt-1">
+                      Aug 2020 - Dec 2022 <br />
+                      2 yrs 5 mos
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-lg group-hover:text-indigo-500">
+                        Software Engineer · Linkdood
+                      </p>
+                      <p>
+                        Build, style, and ship high·quality websites, design
+                        systems, mobile apps, and cross platform digital
+                        experiences for a diverse array of clients using
+                        technologies such as JavaScript, TypeScript, React, CSS,
+                        WordPress, Contentful, and more Lead the development and
+                        architecture of technical tools like content management
+                        systems, REST APIs, and continuous integration pipelines
+                        to fulfill business requirement
+                      </p>
+                      <div class="flex gap-x-3 mb-2">
+                        <ButtonLink
+                          title="LinkedIn"
+                          link="www.google.com"
+                          icon="linkedin-rounded-svgrepo-com.svg"
+                        />
+                        <ButtonLink
+                          title="Github"
+                          link="www.google.com"
+                          icon="linkedin-rounded-svgrepo-com.svg"
+                        />
+                        <ButtonLink
+                          title="Mail"
+                          link="www.google.com"
+                          icon="linkedin-rounded-svgrepo-com.svg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="projects"
+            aria-label="projects"
+            class="projects mt-20">
+            <div class="flex flex-col">
+              <span
+                class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
+                >Projects</span
+              >
+              <div class="experience-info">
+                <h5 class="mb-0 text-white">Software Engineer</h5>
+                <p class="mb-0">Moabi PLT · Full time</p>
+                <p class="mb-0">Jan 2023 - Present · 1 yr 2 mos</p>
+                <p class="mb-0">Malaysia · On-site</p>
+              </div>
+              <div class="experience-info">
+                <h5 class="mb-0 text-white">Software Engineer</h5>
+                <p class="mb-0">Linkdood · Full time</p>
+                <p class="mb-0">Aug 2020 - Dec 2022 · 2 yrs 5 mos</p>
+                <p class="mb-0">Malaysia · On-site</p>
+              </div>
+            </div>
+          </section>
+
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+
+          <p>
+            This template comes with a few integrations already configured in
+            your
+            <code>astro.config.mjs</code> file. You can customize your setup with
+            <a href="https://astro.build/integrations">Astro Integrations</a> to
+            add tools like Tailwind, React, or Vue to your project.
+          </p>
+          <p>Here are a few ideas on how to get started with the template:</p>
+          <ul>
+            <li>Edit this page in <code>src/pages/index.astro</code></li>
+            <li>
+              Edit the site header items in <code
+                >src/components/Header.astro</code
+              >
+            </li>
+            <li>
+              Add your name to the footer in <code
+                >src/components/Footer.astro</code
+              >
+            </li>
+            <li>
+              Check out the included blog posts in <code>src/pages/blog/</code>
+            </li>
+            <li>
+              Customize the blog post page layout in <code
+                >src/layouts/BlogPost.astro</code
+              >
+            </li>
+          </ul>
+          <p>
+            Have fun! If you get stuck, remember to <a
+              href="https://docs.astro.build/"
+              >read the docs
+            </a> or <a href="https://astro.build/chat">join us on Discord</a> to
+            ask questions.
+          </p>
+          <p>
+            Looking for a blog template with a bit more personality? Check out <a
+              href="https://github.com/Charca/astro-blog-template"
+              >astro-blog-template
+            </a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
+          </p>
+        </main>
+      </div>
+    </div>
+    <div
+      class="pointer-events-none fixed inset-0 z-30 transition duration-300 lg:absolute"
+      style="background: radial-gradient(600px at 284px 444px, rgba(29, 78, 216, 0.15), transparent 80%);">
+    </div>
+    <script>
+      window.onload = function () {
+        const nav = document.querySelector(".navbar");
+        const navLinks = nav?.querySelectorAll("a");
+        const currentLink = window.location.href;
+        navLinks?.forEach((link) => {
+          if (link.href == currentLink) {
+            link.classList.add("active");
+          }
+        });
+      };
+
+      window.onscroll = function () {
+        let sections = document.querySelectorAll("section");
+        const nav = document.querySelector(".navbar");
+        const navLinks = nav?.querySelectorAll("a");
+        console.log("section:", sections);
+        sections.forEach((sec) => {
+          let top = window.scrollY;
+          let offset = sec.offsetTop;
+          let height = sec.offsetHeight;
+          let id = sec.getAttribute("id");
+          if (top >= offset && top < offset + height) {
+            navLinks?.forEach((links) => {
+              links.classList.remove("active");
+              console.log("href:", links.href);
+              console.log("ID:", id);
+              console.log("links ID:", links.id);
+              if (id && links.href.includes(id)) {
+                links.classList.add("active");
+              }
+              // document
+              //   .querySelector("header nav a [href*=" + id + "]")
+              //   ?.classList.add("active");
+            });
+          }
+        });
+      };
+    </script>
+  </body>
 </html>
