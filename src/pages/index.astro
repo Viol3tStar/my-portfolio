@@ -4,6 +4,11 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ButtonLink from "../components/ButtonLink.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import CustomBadge from "../components/CustomBadge.astro";
+// Import the <Image /> component
+import { Image } from "astro:assets";
+// Import a reference to the image itself
+import astroPortfolio from "../assets/astro-portfolio.png";
 ---
 
 <!doctype html>
@@ -61,8 +66,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
               Ng Wai Ming
             </h1>
             <h2
-              class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 block mt-3 text-lg font-medium tracking-tight sm:text-xl">
-              Frontend Developer
+              class="block mt-3 text-2xl tracking-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+              Front-end Developer
             </h2>
             <p>
               I build pixel-perfect, engaging, and accessible digital
@@ -139,7 +144,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                   title="LinkedIn"
                   class="text-slate-500 hover:text-slate-200 transition"
                   target="_blank"
-                  href="">
+                  href="https://www.linkedin.com/in/ng-wai-ming95">
                   <span class="sr-only">Go to LinkedIn</span>
 
                   <svg
@@ -159,7 +164,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                   title="Instagram"
                   class="text-slate-500 hover:text-slate-200 transition"
                   target="_blank"
-                  href="">
+                  href="https://www.instagram.com/waiimiing/">
                   <span class="sr-only">Go to Instagram</span>
 
                   <svg
@@ -179,7 +184,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                   title="X (Twitter)"
                   class="text-slate-500 hover:text-slate-200 transition"
                   target="_blank"
-                  href="">
+                  href="https://twitter.com/waiimiinq">
                   <span class="sr-only">Go to X (Twitter)</span>
 
                   <svg
@@ -217,7 +222,27 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                 >
 
                 <p>
-                  Back in 2012, I decided to try my hand at creating custom
+                  Hello, I'm Ng Wai Ming, a highly motivated professional with
+                  over 3 years of experience in the IT industry. My passion lies
+                  in web and mobile development, and I have honed my skills in
+                  Angular, JavaScript, TypeScript, Flutter, Dart,
+                  problem-solving, API integration, and Tailwind CSS.
+                </p>
+                <p>
+                  Throughout my career, I have been involved in creating robust
+                  and user-friendly web and mobile applications, leveraging
+                  cutting-edge technologies to deliver seamless experiences. I
+                  thrive on solving complex challenges and enjoy working
+                  collaboratively with cross-functional teams to turn ideas into
+                  reality.
+                </p>
+                <p>
+                  My dedication to continuous learning and staying up-to-date
+                  with the latest industry trends has allowed me to stay at the
+                  forefront of innovation. I take pride in my ability to adapt
+                  quickly to new technologies and contribute effectively to
+                  dynamic projects.
+                  <!-- Back in 2012, I decided to try my hand at creating custom
                   Tumblr themes and tumbled head first into the rabbit hole of
                   coding and web development. Fast-forward to today, and I’ve
                   had the privilege of building software for an advertising
@@ -231,30 +256,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                   with the Spotify API. When I’m not at the computer, I’m
                   usually rock climbing, reading, hanging out with my wife and
                   two cats, or running around Hyrule searching for Korok seeds K
-                  o r o k s e e d s .
-                </p>
-                <div class="flex gap-x-3 mb-2">
-                  <ButtonLink
-                    title="LinkedIn"
-                    link="www.google.com"
-                    icon="linkedin-rounded-svgrepo-com.svg"
-                  />
-                  <ButtonLink
-                    title="Github"
-                    link="www.google.com"
-                    icon="linkedin-rounded-svgrepo-com.svg"
-                  />
-                  <ButtonLink
-                    title="Mail"
-                    link="www.google.com"
-                    icon="linkedin-rounded-svgrepo-com.svg"
-                  />
-                </div>
-
-                <p class="text-gray-400 text-lg mb-0">
-                  Hi, I am Wai Ming, experienced frontend developer from
-                  Malaysia, with 3 years+ of expertise in Angular, and Flutter.
-                  Ready to create innovative web or mobile app solutions!
+                  o r o k s e e d s . -->
                 </p>
               </div>
             </div>
@@ -271,43 +273,32 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
               >
               <div class="group">
                 <div
-                  class="experience-info border border-transparent rounded-lg shadow-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  class="experience-info border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
                   <div class="flex">
-                    <div class="exp-duration text-sm text-slate-500 w-1/4 pt-1">
-                      Jan 2023 - Present <br /> (1 yr 2 mos)
+                    <div
+                      class="exp-duration text-xs font-bold text-slate-500 w-1/4 pt-1">
+                      JAN 2023 - Present <br /> (1 yr 5 mos)
                     </div>
 
                     <div class="flex flex-col w-3/4">
                       <p
-                        class="mb-0 text-white text-lg group-hover:text-indigo-500">
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
                         Software Engineer · Moabi PLT
                       </p>
-                      <p>
-                        Build, style, and ship high·quality websites, design
-                        systems, mobile apps, and cross platform digital
-                        experiences for a diverse array of clients using
-                        technologies such as JavaScript, TypeScript, React, CSS,
-                        WordPress, Contentful, and more Lead the development and
-                        architecture of technical tools like content management
-                        systems, REST APIs, and continuous integration pipelines
-                        to fulfill business requirement
+                      <p class="text-sm">
+                        Contributed to the continuous enhancement of web and
+                        mobile applications by adding new features, maintaining,
+                        and improving functionality, ensuring an optimal user
+                        experience. Provided guidance and mentorship to a team
+                        of two developers and interns.
                       </p>
-                      <div class="flex gap-x-3 mb-2">
-                        <ButtonLink
-                          title="LinkedIn"
-                          link="www.google.com"
-                          icon="linkedin-rounded-svgrepo-com.svg"
-                        />
-                        <ButtonLink
-                          title="Github"
-                          link="www.google.com"
-                          icon="linkedin-rounded-svgrepo-com.svg"
-                        />
-                        <ButtonLink
-                          title="Mail"
-                          link="www.google.com"
-                          icon="linkedin-rounded-svgrepo-com.svg"
-                        />
+                      <div class="flex flex-wrap gap-2 mb-2">
+                        <CustomBadge title="Angular" />
+                        <CustomBadge title="Typescript" />
+                        <CustomBadge title="Flutter" />
+                        <CustomBadge title="HTML" />
+                        <CustomBadge title="CSS" />
+                        <CustomBadge title="Tailwind CSS" />
                       </div>
                     </div>
                   </div>
@@ -316,51 +307,85 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
               <div class="group">
                 <div
-                  class="experience-info border border-transparent rounded-lg shadow-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  class="experience-info border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
                   <div class="flex">
-                    <div class="exp-duration text-sm text-slate-500 w-1/4 pt-1">
-                      Aug 2020 - Dec 2022 <br />
-                      2 yrs 5 mos
+                    <div
+                      class="exp-duration text-xs font-bold text-slate-500 w-1/4 pt-1">
+                      AUG - DEC 2022 <br />
+                      <span>(2 yrs 5 mos)</span>
                     </div>
 
                     <div class="flex flex-col w-3/4">
                       <p
-                        class="mb-0 text-white text-lg group-hover:text-indigo-500">
-                        Software Engineer · Linkdood
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        Software Engineer · Linkdood Technologies
                       </p>
-                      <p>
-                        Build, style, and ship high·quality websites, design
-                        systems, mobile apps, and cross platform digital
-                        experiences for a diverse array of clients using
-                        technologies such as JavaScript, TypeScript, React, CSS,
-                        WordPress, Contentful, and more Lead the development and
-                        architecture of technical tools like content management
-                        systems, REST APIs, and continuous integration pipelines
-                        to fulfill business requirement
+                      <p class="text-sm">
+                        Implemented and seamlessly integrated APIs to enhance
+                        application functionalities, improving overall
+                        performance and user interactions. Designed modular and
+                        reusable UI components and functions, optimizing
+                        efficiency in development processes. Successfully built
+                        and published applications on both the App Store and
+                        Play Store.
                       </p>
-                      <div class="flex gap-x-3 mb-2">
-                        <ButtonLink
-                          title="LinkedIn"
-                          link="www.google.com"
-                          icon="linkedin-rounded-svgrepo-com.svg"
-                        />
-                        <ButtonLink
-                          title="Github"
-                          link="www.google.com"
-                          icon="linkedin-rounded-svgrepo-com.svg"
-                        />
-                        <ButtonLink
-                          title="Mail"
-                          link="www.google.com"
-                          icon="linkedin-rounded-svgrepo-com.svg"
-                        />
+                      <div class="flex flex-wrap gap-2 mb-2">
+                        <CustomBadge title="Angular" />
+                        <CustomBadge title="Typescript" />
+                        <CustomBadge title="Flutter" />
+                        <CustomBadge title="HTML" />
+                        <CustomBadge title="CSS" />
+                        <CustomBadge title="Tailwind CSS" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="group">
+                <div
+                  class="experience-info border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div
+                      class="exp-duration text-xs font-bold text-slate-500 w-1/4 pt-1">
+                      JAN - SEPT 2019 <br />
+                      <span>(9 mos)</span>
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        Junior Programmer · Tech Maker Resources
+                      </p>
+                      <p class="text-sm">
+                        Developed and implemented coding in Vue.js and Laravel
+                        framework. Responsible for creating functions to
+                        facilitate CRUD operations, integrating Geocode API for
+                        location services, and utilizing Here Maps to display
+                        real-time truck locations.
+                      </p>
+                      <div class="flex gap-x-2 mb-2">
+                        <CustomBadge title="Vue 2" />
+                        <CustomBadge title="Laravel" />
+                        <CustomBadge title="WordPress" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <br />
+            <a
+              target="_blank"
+              href="/NG_WAI_MING_resume.pdf"
+              class="px-2 font-bold text-base text-white hover:text-indigo-500 cursor-pointer">
+              <span class="sr-only">Open resume in new tab</span>
+              View My Résumé &#10153;
+            </a>
           </section>
+          <br />
+          <br />
 
           <section
             id="projects"
@@ -371,19 +396,131 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                 class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
                 >Projects</span
               >
-              <div class="experience-info">
-                <h5 class="mb-0 text-white">Software Engineer</h5>
-                <p class="mb-0">Moabi PLT · Full time</p>
-                <p class="mb-0">Jan 2023 - Present · 1 yr 2 mos</p>
-                <p class="mb-0">Malaysia · On-site</p>
+
+              <div class="group">
+                <div
+                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div class="w-1/4 pt-1">
+                      <Image
+                        class="w-5/6 border border-indigo-300"
+                        src={astroPortfolio}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        My Portfolio
+                      </p>
+                      <p class="text-sm">
+                        Built in Astro and deployed with Netlify
+                      </p>
+                      <div class="flex gap-x-2 mb-2">
+                        <CustomBadge title="Astro" />
+                        <CustomBadge title="Netlify" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="experience-info">
-                <h5 class="mb-0 text-white">Software Engineer</h5>
-                <p class="mb-0">Linkdood · Full time</p>
-                <p class="mb-0">Aug 2020 - Dec 2022 · 2 yrs 5 mos</p>
-                <p class="mb-0">Malaysia · On-site</p>
+
+              <div class="group">
+                <div
+                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div class="w-1/4 pt-1">
+                      <Image
+                        class="w-5/6 border border-indigo-300"
+                        src={astroPortfolio}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        My Portfolio
+                      </p>
+                      <p class="text-sm">
+                        Built in Astro and deployed with Netlify
+                      </p>
+                      <div class="flex gap-x-2 mb-2">
+                        <CustomBadge title="Astro" />
+                        <CustomBadge title="Netlify" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="group">
+                <div
+                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div class="w-1/4 pt-1">
+                      <Image
+                        class="w-5/6 border border-indigo-300"
+                        src={astroPortfolio}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        My Portfolio
+                      </p>
+                      <p class="text-sm">
+                        Built in Astro and deployed with Netlify
+                      </p>
+                      <div class="flex gap-x-2 mb-2">
+                        <CustomBadge title="Astro" />
+                        <CustomBadge title="Netlify" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="group">
+                <div
+                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
+                  <div class="flex">
+                    <div class="w-1/4 pt-1">
+                      <Image
+                        class="w-5/6 border border-indigo-300"
+                        src={astroPortfolio}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-3/4">
+                      <p
+                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        My Portfolio
+                      </p>
+                      <p class="text-sm">
+                        Built in Astro and deployed with Netlify
+                      </p>
+                      <div class="flex gap-x-2 mb-2">
+                        <CustomBadge title="Astro" />
+                        <CustomBadge title="Netlify" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <br />
+            <a
+              href=""
+              class="px-2 font-bold text-base text-white hover:text-indigo-500 cursor-pointer">
+              <span class="sr-only">Open project page</span>
+              View My Full Projects &#10153;
+            </a>
           </section>
 
           <br />
@@ -392,58 +529,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
           <br />
           <br />
           <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
 
-          <p>
-            This template comes with a few integrations already configured in
-            your
-            <code>astro.config.mjs</code> file. You can customize your setup with
-            <a href="https://astro.build/integrations">Astro Integrations</a> to
-            add tools like Tailwind, React, or Vue to your project.
-          </p>
-          <p>Here are a few ideas on how to get started with the template:</p>
-          <ul>
-            <li>Edit this page in <code>src/pages/index.astro</code></li>
-            <li>
-              Edit the site header items in <code
-                >src/components/Header.astro</code
-              >
-            </li>
-            <li>
-              Add your name to the footer in <code
-                >src/components/Footer.astro</code
-              >
-            </li>
-            <li>
-              Check out the included blog posts in <code>src/pages/blog/</code>
-            </li>
-            <li>
-              Customize the blog post page layout in <code
-                >src/layouts/BlogPost.astro</code
-              >
-            </li>
-          </ul>
-          <p>
-            Have fun! If you get stuck, remember to <a
-              href="https://docs.astro.build/"
-              >read the docs
-            </a> or <a href="https://astro.build/chat">join us on Discord</a> to
-            ask questions.
-          </p>
-          <p>
-            Looking for a blog template with a bit more personality? Check out <a
-              href="https://github.com/Charca/astro-blog-template"
-              >astro-blog-template
-            </a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-          </p>
+          <section aria-label="footer">
+            <p class="px-3 text-sm">
+              Loosely designed in Figma and coded in Visual Studio Code by yours
+              truly. Built with Astro and Tailwind CSS, deployed with Netlify.
+              <!-- All text is set in the Inter typeface. -->
+            </p>
+          </section>
         </main>
       </div>
     </div>
