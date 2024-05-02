@@ -204,7 +204,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
           </div>
         </header>
 
-        <main>
+        <main class="lg:w-1/2">
           <section
             id="about"
             aria-label="about">
@@ -215,7 +215,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                 src="/my-animoji.png"
                 alt=""
               /> -->
-              <div class="flex flex-col p-4">
+              <div class="flex flex-col lg:p-4">
                 <span
                   class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
                   >About</span
@@ -225,8 +225,8 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                   Hello, I'm Ng Wai Ming, a highly motivated professional with
                   over 3 years of experience in the IT industry. My passion lies
                   in web and mobile development, and I have honed my skills in
-                  Angular, JavaScript, TypeScript, Flutter, Dart,
-                  problem-solving, API integration, and Tailwind CSS.
+                  TypeScript, Angular, Flutter, Dart, problem-solving, API
+                  integration, and Tailwind CSS.
                 </p>
                 <p>
                   Throughout my career, I have been involved in creating robust
@@ -268,21 +268,22 @@ import astroPortfolio from "../assets/astro-portfolio.png";
             class="experience mt-20">
             <div class="flex flex-col gap-y-4">
               <span
-                class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
+                class="lg:hidden mt-10 sm:mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
                 >Experience</span
               >
               <div class="group">
                 <div
-                  class="experience-info border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
+                  class="experience-info border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col sm:flex-row">
                     <div
-                      class="exp-duration text-xs font-bold text-slate-500 w-1/4 pt-1">
-                      JAN 2023 - Present <br /> (1 yr 5 mos)
+                      class="exp-duration pt-1 text-xs font-bold text-slate-500 w-full sm:w-1/4 flex sm:flex-col">
+                      <span>JAN 2023 - Present</span>
+                      <span class="ml-3 sm:ml-0">(1 yr 5 mos)</span>
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="my-1 sm:mx-0 text-white text-base group-hover:text-indigo-500">
                         Software Engineer · Moabi PLT
                       </p>
                       <p class="text-sm">
@@ -299,6 +300,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                         <CustomBadge title="HTML" />
                         <CustomBadge title="CSS" />
                         <CustomBadge title="Tailwind CSS" />
+                        <CustomBadge title="RESTful API" />
                       </div>
                     </div>
                   </div>
@@ -307,17 +309,17 @@ import astroPortfolio from "../assets/astro-portfolio.png";
 
               <div class="group">
                 <div
-                  class="experience-info border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
+                  class="experience-info border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col sm:flex-row">
                     <div
-                      class="exp-duration text-xs font-bold text-slate-500 w-1/4 pt-1">
-                      AUG - DEC 2022 <br />
-                      <span>(2 yrs 5 mos)</span>
+                      class="exp-duration pt-1 text-xs font-bold text-slate-500 w-full sm:w-1/4 flex sm:flex-col">
+                      <span>AUG - DEC 2022</span>
+                      <span class="ml-3 sm:ml-0">(2 yr 5 mos)</span>
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="my-1 sm:mx-0 text-white text-base group-hover:text-indigo-500">
                         Software Engineer · Linkdood Technologies
                       </p>
                       <p class="text-sm">
@@ -336,6 +338,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                         <CustomBadge title="HTML" />
                         <CustomBadge title="CSS" />
                         <CustomBadge title="Tailwind CSS" />
+                        <CustomBadge title="RESTful API" />
                       </div>
                     </div>
                   </div>
@@ -344,17 +347,17 @@ import astroPortfolio from "../assets/astro-portfolio.png";
 
               <div class="group">
                 <div
-                  class="experience-info border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
+                  class="experience-info border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col sm:flex-row">
                     <div
-                      class="exp-duration text-xs font-bold text-slate-500 w-1/4 pt-1">
-                      JAN - SEPT 2019 <br />
-                      <span>(9 mos)</span>
+                      class="exp-duration pt-1 text-xs font-bold text-slate-500 w-full sm:w-1/4 flex sm:flex-col">
+                      <span>JAN - SEPT 2019</span>
+                      <span class="ml-3 sm:ml-0">(9 mos)</span>
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="my-1 sm:mx-0 text-white text-base group-hover:text-indigo-500">
                         Junior Programmer · Tech Maker Resources
                       </p>
                       <p class="text-sm">
@@ -364,7 +367,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                         location services, and utilizing Here Maps to display
                         real-time truck locations.
                       </p>
-                      <div class="flex gap-x-2 mb-2">
+                      <div class="flex flex-wrap gap-2 mb-2">
                         <CustomBadge title="Vue 2" />
                         <CustomBadge title="Laravel" />
                         <CustomBadge title="WordPress" />
@@ -379,7 +382,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
             <a
               target="_blank"
               href="/NG_WAI_MING_resume.pdf"
-              class="px-2 font-bold text-base text-white hover:text-indigo-500 cursor-pointer">
+              class="sm:px-2 font-bold text-base text-white hover:text-indigo-500 cursor-pointer">
               <span class="sr-only">Open resume in new tab</span>
               View My Résumé &#10153;
             </a>
@@ -390,28 +393,28 @@ import astroPortfolio from "../assets/astro-portfolio.png";
           <section
             id="projects"
             aria-label="projects"
-            class="projects mt-20">
-            <div class="flex flex-col">
+            class="projects sm:mt-20">
+            <div class="flex flex-col gap-y-8">
               <span
-                class="lg:hidden mt-10 mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
+                class="lg:hidden mt-10 mb-0 sm:mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
                 >Projects</span
               >
 
               <div class="group">
                 <div
-                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
-                    <div class="w-1/4 pt-1">
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/4 pt-1">
                       <Image
-                        class="w-5/6 border border-indigo-300"
+                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
                         src={astroPortfolio}
                         alt="astro portfolio image"
                       />
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
                         My Portfolio
                       </p>
                       <p class="text-sm">
@@ -428,19 +431,19 @@ import astroPortfolio from "../assets/astro-portfolio.png";
 
               <div class="group">
                 <div
-                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
-                    <div class="w-1/4 pt-1">
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/4 pt-1">
                       <Image
-                        class="w-5/6 border border-indigo-300"
+                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
                         src={astroPortfolio}
                         alt="astro portfolio image"
                       />
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
                         My Portfolio
                       </p>
                       <p class="text-sm">
@@ -457,19 +460,19 @@ import astroPortfolio from "../assets/astro-portfolio.png";
 
               <div class="group">
                 <div
-                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
-                    <div class="w-1/4 pt-1">
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/4 pt-1">
                       <Image
-                        class="w-5/6 border border-indigo-300"
+                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
                         src={astroPortfolio}
                         alt="astro portfolio image"
                       />
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
                         My Portfolio
                       </p>
                       <p class="text-sm">
@@ -486,19 +489,19 @@ import astroPortfolio from "../assets/astro-portfolio.png";
 
               <div class="group">
                 <div
-                  class="border border-transparent rounded-lg group-hover:shadow-inner group-hover:bg-slate-200/5 p-4">
-                  <div class="flex">
-                    <div class="w-1/4 pt-1">
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/4 pt-1">
                       <Image
-                        class="w-5/6 border border-indigo-300"
+                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
                         src={astroPortfolio}
                         alt="astro portfolio image"
                       />
                     </div>
 
-                    <div class="flex flex-col w-3/4">
+                    <div class="flex flex-col w-full sm:w-3/4">
                       <p
-                        class="mb-0 text-white text-base group-hover:text-indigo-500">
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
                         My Portfolio
                       </p>
                       <p class="text-sm">
