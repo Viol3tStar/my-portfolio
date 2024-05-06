@@ -11,6 +11,7 @@ import { Image } from "astro:assets";
 import astroPortfolio from "../assets/astro-portfolio.png";
 import rentalHomePage from "../assets/rental-homepage.png";
 import fnbSampleImage from "../assets/fnb-sample.png";
+import angsakuSampleImage from "../assets/angsaku-homepage.jpg";
 ---
 
 <!doctype html>
@@ -68,10 +69,10 @@ import fnbSampleImage from "../assets/fnb-sample.png";
               Ng Wai Ming
             </h1>
             <h2
-              class="block mt-3 text-2xl tracking-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+              class="block mt-1 text-2xl tracking-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
               Front-end Developer
             </h2>
-            <p>
+            <p class="w-full sm:w-3/4">
               I specialize in crafting user-friendly digital experiences that
               are visually captivating and inclusive.
             </p>
@@ -269,7 +270,7 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                   Hello, I'm Ng Wai Ming, a highly motivated professional with
                   over 4 years of experience in the IT industry. My passion lies
                   in web and mobile development, and I have honed my skills in
-                  Javascript Typescript, Angular, Flutter, Dart,
+                  Javascript, Typescript, Angular, Flutter, Dart,
                   problem-solving, API integration, and Tailwind CSS.
                 </p>
                 <p>
@@ -315,7 +316,11 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                 class="lg:hidden mt-10 sm:mb-6 py-5 sticky top-0 left-0 font-bold uppercase text-sm text-slate-200 z-40 backdrop-blur flex-none transition-colors duration-500"
                 >Experience</span
               >
-              <div class="group">
+
+              <a
+                class="group"
+                target="_blank"
+                href="https://moabi2u.com/">
                 <div
                   class="experience-info border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col sm:flex-row">
@@ -330,12 +335,11 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                         class="my-1 sm:mx-0 text-white text-base group-hover:text-indigo-500">
                         Software Engineer · Moabi PLT
                       </p>
-                      <p class="text-sm">
-                        Contributed to the continuous enhancement of web and
-                        mobile applications by adding new features, maintaining,
-                        and improving functionality, ensuring an optimal user
-                        experience. Provided guidance and mentorship to a team
-                        of two developers and interns.
+                      <p class="text-sm text-slate-400">
+                        Build and maintain essential components that form the
+                        frontend architecture across entire product suite. Lead
+                        a team of two junior front-end developers and provided
+                        guidance and mentorship to interns.
                       </p>
                       <div class="flex flex-wrap gap-2 mb-2">
                         <CustomBadge title="Angular" />
@@ -351,9 +355,12 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
 
-              <div class="group">
+              <a
+                class="group"
+                href="https://linkdood.com/"
+                target="_blank">
                 <div
                   class="experience-info border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col sm:flex-row">
@@ -368,14 +375,12 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                         class="my-1 sm:mx-0 text-white text-base group-hover:text-indigo-500">
                         Software Engineer · Linkdood Technologies
                       </p>
-                      <p class="text-sm">
-                        Implemented and seamlessly integrated APIs to enhance
-                        application functionalities, improving overall
-                        performance and user interactions. Designed modular and
-                        reusable UI components and functions, optimizing
-                        efficiency in development processes. Successfully built
-                        and published applications on both the App Store and
-                        Play Store.
+                      <p class="text-sm text-slate-400">
+                        Build, style, and ship production code, design systems,
+                        mobile apps using technologies such as JavaScript,
+                        TypeScript, Flutter, Angular and Tailwind CSS.
+                        Successfully built and published applications on both
+                        the App Store and Play Store.
                       </p>
                       <div class="flex flex-wrap gap-2 mb-2">
                         <CustomBadge title="Javascript" />
@@ -391,9 +396,12 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
 
-              <div class="group">
+              <a
+                class="group"
+                target="_blank"
+                href="https://techmaker.com.my/">
                 <div
                   class="experience-info border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col sm:flex-row">
@@ -408,7 +416,7 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                         class="my-1 sm:mx-0 text-white text-base group-hover:text-indigo-500">
                         Junior Programmer · Tech Maker Resources
                       </p>
-                      <p class="text-sm">
+                      <p class="text-sm text-slate-400">
                         Developed and implemented coding in Vue.js and Laravel
                         framework. Responsible for creating functions to
                         facilitate CRUD operations, integrating Geocode API for
@@ -423,7 +431,7 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
 
             <br />
@@ -448,13 +456,16 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                 >Projects</span
               >
 
-              <div class="group">
+              <a
+                class="group"
+                target="_blank"
+                href="https://waiming.netlify.app/">
                 <div
                   class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col-reverse sm:flex-row">
                     <div class="w-full sm:w-1/3 pt-1">
                       <Image
-                        class="w-full sm:w-5/6 h-42 sm:h-20 mt-2 border border-indigo-300"
+                        class="w-full sm:w-5/6 h-42 sm:h-20 mt-1 border border-indigo-300"
                         src={astroPortfolio}
                         alt="astro portfolio image"
                       />
@@ -463,28 +474,34 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     <div class="flex flex-col w-full sm:w-3/4">
                       <p
                         class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
-                        My Portfolio
+                        Personal Website
                       </p>
-                      <p class="text-sm">
-                        Built in Astro and deployed with Netlify
+                      <p class="text-sm text-slate-400">
+                        Crafted using Astro and seamlessly launched via Netlify,
+                        my personal website showcases my professional journey
+                        and passions.
                       </p>
                       <div class="flex flex-wrap gap-2 mb-2">
+                        <CustomBadge title="Javascript" />
                         <CustomBadge title="Astro" />
+                        <CustomBadge title="Tailwind CSS" />
                         <CustomBadge title="Netlify" />
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
 
-              <div class="group">
-                <!-- https://tc2u.moabi2u.com/demo/client/home -->
+              <a
+                class="group"
+                target="_blank"
+                href="https://tc2u.moabi2u.com/demo/client/home">
                 <div
                   class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col-reverse sm:flex-row">
                     <div class="w-full sm:w-1/3 pt-1">
                       <Image
-                        class="w-full sm:w-5/6 h-42 sm:h-20 mt-2 border border-indigo-300"
+                        class="w-full sm:w-5/6 h-42 sm:h-20 mt-1 border border-indigo-300"
                         src={rentalHomePage}
                         alt="astro portfolio image"
                       />
@@ -493,9 +510,9 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     <div class="flex flex-col w-full sm:w-3/4">
                       <p
                         class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
-                        Property Management System
+                        Leasing Management System
                       </p>
-                      <p class="text-sm">
+                      <p class="text-sm text-slate-400">
                         Web app for booking short- and long-term homestays and
                         facilities. Users can easily search, view details, and
                         book accommodations. It's mobile-responsive for
@@ -513,15 +530,18 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
 
-              <div class="group">
+              <a
+                class="group"
+                target="_blank"
+                href="https://makanhere.com/main">
                 <div
                   class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col-reverse sm:flex-row">
                     <div class="w-full sm:w-1/3 pt-1">
                       <Image
-                        class="w-3/4 sm:w-5/6 h-40 sm:h-20 mt-2 border border-indigo-300 object-contain"
+                        class="w-3/4 sm:w-5/6 h-40 sm:h-20 mt-1 border border-indigo-300 object-contain"
                         src={fnbSampleImage}
                         alt="astro portfolio image"
                       />
@@ -530,12 +550,12 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     <div class="flex flex-col w-full sm:w-3/4">
                       <p
                         class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
-                        Food Ordering System
+                        MakanHere - Food Ordering System
                       </p>
-                      <p class="text-sm">
+                      <p class="text-sm text-slate-400">
                         A user-friendly platform where customers can browse
-                        menus, customize orders, and make payments online. With
-                        the added benefit of membership rewards, users can earn
+                        menus, customize orders, and make payments. With the
+                        added benefit of membership rewards, users can earn
                         points or discounts with each purchase, enhancing their
                         overall experience while enjoying convenient ordering
                         and delivery services.
@@ -543,6 +563,7 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                       <div class="flex flex-wrap gap-2 mb-2">
                         <CustomBadge title="Dart" />
                         <CustomBadge title="Flutter" />
+                        <CustomBadge title="GetX" />
                         <CustomBadge title="Firebase" />
                         <CustomBadge title="Android" />
                         <CustomBadge title="iOS" />
@@ -554,7 +575,51 @@ import fnbSampleImage from "../assets/fnb-sample.png";
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
+
+              <a
+                class="group"
+                target="_blank"
+                href="https://angsaku.com/main">
+                <div
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/3 pt-1">
+                      <Image
+                        class="w-3/4 sm:w-5/6 h-40 sm:h-20 mt-1 border border-indigo-300 object-contain"
+                        src={angsakuSampleImage}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-full sm:w-3/4">
+                      <p
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
+                        Angsaku - Property Management System
+                      </p>
+                      <p class="text-sm text-slate-400">
+                        Angsaku creates an ecosystem where residents,
+                        communities, property managers, and local businesses
+                        collaborate for neighborhood digital transformation,
+                        leading to shared prosperity and enhanced living
+                        experiences.
+                      </p>
+                      <div class="flex flex-wrap gap-2 mb-2">
+                        <CustomBadge title="Dart" />
+                        <CustomBadge title="Flutter" />
+                        <CustomBadge title="Firebase" />
+                        <CustomBadge title="iOS" />
+                        <CustomBadge title="Android" />
+                        <CustomBadge title="HuaWei" />
+                        <CustomBadge title="Javascript" />
+                        <CustomBadge title="Angular" />
+                        <CustomBadge title="Vue 2" />
+                        <CustomBadge title="RESTful API" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
 
               <!-- <div class="group">
                 <div
