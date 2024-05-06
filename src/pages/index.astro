@@ -9,6 +9,8 @@ import CustomBadge from "../components/CustomBadge.astro";
 import { Image } from "astro:assets";
 // Import a reference to the image itself
 import astroPortfolio from "../assets/astro-portfolio.png";
+import rentalHomePage from "../assets/rental-homepage.png";
+import fnbSampleImage from "../assets/fnb-sample.png";
 ---
 
 <!doctype html>
@@ -376,8 +378,10 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                         Play Store.
                       </p>
                       <div class="flex flex-wrap gap-2 mb-2">
-                        <CustomBadge title="Angular" />
+                        <CustomBadge title="Javascript" />
                         <CustomBadge title="Typescript" />
+                        <CustomBadge title="Angular" />
+                        <CustomBadge title="Dart" />
                         <CustomBadge title="Flutter" />
                         <CustomBadge title="HTML" />
                         <CustomBadge title="CSS" />
@@ -450,7 +454,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                   <div class="flex flex-col-reverse sm:flex-row">
                     <div class="w-full sm:w-1/3 pt-1">
                       <Image
-                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
+                        class="w-full sm:w-5/6 h-42 sm:h-20 mt-2 border border-indigo-300"
                         src={astroPortfolio}
                         alt="astro portfolio image"
                       />
@@ -464,7 +468,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                       <p class="text-sm">
                         Built in Astro and deployed with Netlify
                       </p>
-                      <div class="flex gap-x-2 mb-2">
+                      <div class="flex flex-wrap gap-2 mb-2">
                         <CustomBadge title="Astro" />
                         <CustomBadge title="Netlify" />
                       </div>
@@ -474,6 +478,85 @@ import astroPortfolio from "../assets/astro-portfolio.png";
               </div>
 
               <div class="group">
+                <!-- https://tc2u.moabi2u.com/demo/client/home -->
+                <div
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/3 pt-1">
+                      <Image
+                        class="w-full sm:w-5/6 h-42 sm:h-20 mt-2 border border-indigo-300"
+                        src={rentalHomePage}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-full sm:w-3/4">
+                      <p
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
+                        Property Management System
+                      </p>
+                      <p class="text-sm">
+                        Web app for booking short- and long-term homestays and
+                        facilities. Users can easily search, view details, and
+                        book accommodations. It's mobile-responsive for
+                        convenient access.
+                      </p>
+                      <div class="flex flex-wrap gap-2 mb-2">
+                        <CustomBadge title="Javascript" />
+                        <CustomBadge title="Typescript" />
+                        <CustomBadge title="Angular" />
+                        <CustomBadge title="Tailwind CSS" />
+                        <CustomBadge title="Firebase" />
+                        <CustomBadge title="RESTful API" />
+                        <CustomBadge title="Mobile Responsive" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="group">
+                <div
+                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
+                  <div class="flex flex-col-reverse sm:flex-row">
+                    <div class="w-full sm:w-1/3 pt-1">
+                      <Image
+                        class="w-3/4 sm:w-5/6 h-40 sm:h-20 mt-2 border border-indigo-300 object-contain"
+                        src={fnbSampleImage}
+                        alt="astro portfolio image"
+                      />
+                    </div>
+
+                    <div class="flex flex-col w-full sm:w-3/4">
+                      <p
+                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
+                        Food Ordering System
+                      </p>
+                      <p class="text-sm">
+                        A user-friendly platform where customers can browse
+                        menus, customize orders, and make payments online. With
+                        the added benefit of membership rewards, users can earn
+                        points or discounts with each purchase, enhancing their
+                        overall experience while enjoying convenient ordering
+                        and delivery services.
+                      </p>
+                      <div class="flex flex-wrap gap-2 mb-2">
+                        <CustomBadge title="Dart" />
+                        <CustomBadge title="Flutter" />
+                        <CustomBadge title="Firebase" />
+                        <CustomBadge title="Android" />
+                        <CustomBadge title="iOS" />
+                        <CustomBadge title="Web" />
+                        <CustomBadge title="Javascript" />
+                        <CustomBadge title="Angular" />
+                        <CustomBadge title="RESTful API" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="group">
                 <div
                   class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
                   <div class="flex flex-col-reverse sm:flex-row">
@@ -500,65 +583,7 @@ import astroPortfolio from "../assets/astro-portfolio.png";
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="group">
-                <div
-                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
-                  <div class="flex flex-col-reverse sm:flex-row">
-                    <div class="w-full sm:w-1/3 pt-1">
-                      <Image
-                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
-                        src={astroPortfolio}
-                        alt="astro portfolio image"
-                      />
-                    </div>
-
-                    <div class="flex flex-col w-full sm:w-3/4">
-                      <p
-                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
-                        My Portfolio
-                      </p>
-                      <p class="text-sm">
-                        Built in Astro and deployed with Netlify
-                      </p>
-                      <div class="flex gap-x-2 mb-2">
-                        <CustomBadge title="Astro" />
-                        <CustomBadge title="Netlify" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="group">
-                <div
-                  class="border border-transparent rounded-lg sm:group-hover:shadow-inner sm:group-hover:bg-slate-200/5 sm:p-4">
-                  <div class="flex flex-col-reverse sm:flex-row">
-                    <div class="w-full sm:w-1/3 pt-1">
-                      <Image
-                        class="w-1/2 sm:w-5/6 mt-2 border border-indigo-300"
-                        src={astroPortfolio}
-                        alt="astro portfolio image"
-                      />
-                    </div>
-
-                    <div class="flex flex-col w-full sm:w-3/4">
-                      <p
-                        class="mb-1 sm:mb-0 text-white text-base group-hover:text-indigo-500">
-                        My Portfolio
-                      </p>
-                      <p class="text-sm">
-                        Built in Astro and deployed with Netlify
-                      </p>
-                      <div class="flex gap-x-2 mb-2">
-                        <CustomBadge title="Astro" />
-                        <CustomBadge title="Netlify" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </div> -->
             </div>
 
             <!-- <br />
@@ -579,8 +604,8 @@ import astroPortfolio from "../assets/astro-portfolio.png";
 
           <section aria-label="footer">
             <p class="px-3 text-sm sm:pb-20">
-              Loosely designed in Figma and coded in Visual Studio Code by yours
-              truly. Built with Astro and Tailwind CSS, deployed with Netlify.
+              Coded in Visual Studio Code and built with Astro and Tailwind CSS,
+              deployed with Netlify.
               <!-- All text is set in the Inter typeface. -->
             </p>
           </section>
