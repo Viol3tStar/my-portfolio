@@ -53,6 +53,62 @@ import angsakuCover from "../assets/angsaku-cover.png";
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 150ms;
       }
+
+      .text-gradient {
+        animation: text-animation 15s ease-out infinite alternate;
+        background: linear-gradient(
+          90deg,
+          #00bce6 0%,
+          #00bce6 15%,
+          #2962ff 50.31%,
+          #d500f9 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-repeat: no-repeat;
+        background-size: 500% 500%;
+        word-break: break-word;
+        -webkit-text-fill-color: #0000;
+      }
+
+      @keyframes text-animation {
+        0% {
+          background-position: left;
+        }
+        100% {
+          background-position: right;
+        }
+      }
+
+      .paragraph-text-gradient {
+        background: linear-gradient(
+          90deg,
+          #00bce6 0%,
+          #00bce6 15%,
+          #2962ff 50.31%,
+          #d500f9 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-size: 500% 500%;
+        background-repeat: no-repeat;
+        word-break: break-word;
+        -webkit-text-fill-color: #0000;
+      }
+
+      .paragraph-text-gradient:hover,
+      .paragraph-text-gradient:focus {
+        animation: paragraph-text-animation 1s forwards;
+      }
+
+      @keyframes paragraph-text-animation {
+        0% {
+          background-position: left;
+        }
+        100% {
+          background-position: right;
+        }
+      }
     </style>
   </head>
 
@@ -68,8 +124,10 @@ import angsakuCover from "../assets/angsaku-cover.png";
               class="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
               Ng Wai Ming
             </h1>
-            <h2
-              class="block mt-1 text-2xl tracking-tight font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            <!-- class="block mt-1 text-2xl tracking-tight font-bold text-transparent
+            bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"> -->
+
+            <h2 class="text-gradient overflow-hidden font-extrabold">
               Front-end Developer
             </h2>
             <p class="w-full sm:w-3/4">
