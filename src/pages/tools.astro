@@ -1,0 +1,888 @@
+---
+import Layout from "../layouts/BlogPost.astro";
+---
+
+<Layout
+  title="PDF Summary Tool"
+  description="Upload and process PDFs to generate summaries"
+  pubDate={new Date()}
+  heroImage="/blog-placeholder-about.jpg">
+  <div class="pdf-tool">
+    <h2>PDF Summary Generator</h2>
+    <p>
+      Upload multiple PDF files to generate a summary document. All processing
+      happens in your browser.
+    </p>
+
+    <form
+      id="pdfForm"
+      class="upload-form">
+      <div class="form-group">
+        <label for="pdfs">Select PDF files:</label>
+        <input
+          type="file"
+          id="pdfs"
+          name="pdfs"
+          accept=".pdf"
+          multiple
+          required
+          class="file-input"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="submit-btn"
+        >Generate Summary</button
+      >
+    </form>
+
+    <div
+      id="status"
+      class="status-area">
+    </div>
+    <div
+      id="progress"
+      class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <script>
+    // Type declaration for the dynamically loaded libraries
+    interface Window {
+      pdfjsLib: any;
+      PDFLib: any;
+    }
+
+    // We'll need to load the PDF.js library for client-side PDF processing
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Load the PDF.js library
+      const pdfJsScript = document.createElement("script");
+      pdfJsScript.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js";
+      document.head.appendChild(pdfJsScript);
+
+      // Load the PDF-LIB library for creating PDFs
+      const pdfLibScript = document.createElement("script");
+      pdfLibScript.src = "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js";
+      document.head.appendChild(pdfLibScript);
+
+      // Load the SheetJS library for Excel generation
+      const sheetJsScript = document.createElement("script");
+      sheetJsScript.src =
+        "https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js";
+      document.head.appendChild(sheetJsScript);
+
+      // Wait for libraries to load
+      await new Promise((resolve) => {
+        pdfJsScript.onload = () => {
+          pdfLibScript.onload = () => {
+            sheetJsScript.onload = resolve;
+          };
+        };
+      });
+
+      // Initialize PDF.js worker
+      (window as any).pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
+
+      // Form submission handler
+      const form = document.getElementById("pdfForm");
+      const statusDiv = document.getElementById("status");
+      const progressContainer = document.getElementById("progress");
+      const progressBar = document.querySelector(
+        ".progress-bar"
+      ) as HTMLElement;
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Fix the type by casting to HTMLInputElement
+        const fileInput = document.getElementById("pdfs") as HTMLInputElement;
+        const files = fileInput?.files;
+
+        if (!files || files.length === 0) {
+          if (statusDiv) {
+            statusDiv.textContent = "Please select at least one PDF file.";
+            statusDiv.style.backgroundColor = "#ffdddd";
+          }
+          return;
+        }
+
+        if (!statusDiv || !progressContainer || !progressBar) {
+          console.error("DOM elements not found");
+          return;
+        }
+        statusDiv.textContent = "Processing PDFs...";
+        statusDiv.style.backgroundColor = "#f0f0f0";
+        progressContainer.style.display = "block";
+        progressBar.style.width = "0%";
+
+        try {
+          // Process each PDF file
+          const summaries = [];
+          let processedFiles = 0;
+
+          for (const file of files) {
+            // Size validation
+            if (file.size > 50 * 1024 * 1024) {
+              // 50MB limit
+              throw new Error(`File ${file.name} exceeds the 50MB size limit`);
+            }
+
+            // Read the file
+            const arrayBuffer = await readFileAsArrayBuffer(file);
+
+            // Load the PDF document
+            const pdf = await (window as any).pdfjsLib.getDocument({
+              data: arrayBuffer,
+            }).promise;
+
+            // Extract text from all pages
+            let fullText = "";
+            for (let i = 1; i <= pdf.numPages; i++) {
+              const page = await pdf.getPage(i);
+              const textContent = await page.getTextContent();
+              const pageText = textContent.items.map((item: any) => item.str);
+              // .join(" ");
+              fullText += pageText + " ";
+            }
+
+            console.log("fullText: ", fullText);
+            // Create a simple summary (first 200 characters)
+            // In a real app, you'd use a more sophisticated summarization algorithm
+            const summary = extractDataFromPDF(fullText);
+
+            summaries.push({
+              filename: file.name,
+              summary,
+            });
+
+            // Update progress
+            processedFiles++;
+            const progress = (processedFiles / files.length) * 100;
+            progressBar.style.width = `${progress}%`;
+          }
+
+          // Generate a summary PDF using PDF-LIB
+          const { PDFDocument, StandardFonts, rgb } = (window as any).PDFLib;
+          const pdfDoc = await PDFDocument.create();
+          const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+          const helveticaBold = await pdfDoc.embedFont(
+            StandardFonts.HelveticaBold
+          );
+
+          // Add a page for each summary
+          for (const item of summaries) {
+            // Create a page with custom dimensions (width, height) in points
+            // Standard A4 is 595 x 842 points
+            // For a wider landscape format, you could use something like:
+            const page = pdfDoc.addPage([842, 595]); // Landscape A4
+            // Or for a custom size:
+            // const page = pdfDoc.addPage([800, 600]); // Custom dimensions
+
+            const { width, height } = page.getSize();
+
+            // Add title
+            page.drawText(`Summary of: ${item.filename}`, {
+              x: 50,
+              y: height - 50,
+              size: 12,
+              font: helveticaBold,
+              color: rgb(0, 0, 0),
+            });
+
+            // Draw table header
+            const tableTop = height - 80;
+            const mainColWidth = (width - 100) / 6; // 6 main columns: Customer, Date, and 4 grade categories
+            const gradeColWidth = mainColWidth / 7; // Each grade category has 7 sub-columns (AA, A, B, C, D, E, F)
+
+            // // Try to parse data from the summary text
+            // const lines = item.summary.toString().split(/\n|,/);
+            // let rowY = tableTop - 40;
+            // let rowCount = 0;
+
+            // // Draw row lines and data
+            // for (let i = 0; i < Math.min(8, lines.length); i++) {
+            //   const line = lines[i];
+            //   if (line && line.trim() && rowCount < 8) {
+            //     // Limit to 8 rows for this example
+            //     // Draw row border
+            //     page.drawLine({
+            //       start: { x: 50, y: rowY },
+            //       end: { x: width - 50, y: rowY },
+            //       thickness: 1,
+            //       color: rgb(0, 0, 0),
+            //     });
+
+            //     // Try to extract customer name and date if possible
+            //     const parts = line.split(/\s+/);
+            //     if (parts.length > 1) {
+            //       // Assume first part might be customer name
+            //       page.drawText(parts[0].substring(0, 15), {
+            //         x: 55,
+            //         y: rowY - 15,
+            //         size: 8,
+            //         font: helveticaFont,
+            //         color: rgb(0, 0, 0),
+            //       });
+
+            //       // Look for date-like pattern
+            //       const dateMatch = line.match(/\d{2}\.\d{2}\.\d{4}/);
+            //       if (dateMatch) {
+            //         page.drawText(dateMatch[0], {
+            //           x: 55 + mainColWidth,
+            //           y: rowY - 15,
+            //           size: 8,
+            //           font: helveticaFont,
+            //           color: rgb(0, 0, 0),
+            //         });
+            //       }
+
+            //       // Look for numeric values that might be grades
+            //       const numbers = line.match(/\d+\.\d+/g);
+            //       if (numbers && numbers.length > 0) {
+            //         // Place numbers in appropriate grade cells
+            //         // This is simplified - you'd need more logic to determine which grade column each number belongs to
+            //         numbers.slice(0, 4).forEach((num, idx) => {
+            //           const colOffset = Math.floor(idx / 2) + 2; // 2 numbers per main column
+            //           const subColOffset = (idx % 2) * 2 + 1; // Alternate between columns B and D
+
+            //           page.drawText(num, {
+            //             x:
+            //               50 +
+            //               mainColWidth * colOffset +
+            //               gradeColWidth * subColOffset,
+            //             y: rowY - 15,
+            //             size: 8,
+            //             font: helveticaFont,
+            //             color: rgb(0, 0, 0),
+            //           });
+            //         });
+            //       }
+            //     }
+
+            //     rowY -= 30;
+            //     rowCount++;
+            //   }
+            // }
+
+            // // Add summary text below the table if needed
+            // let yPosition = tableTop - 320;
+            // const summaryLines = wrapText(
+            //   "Additional notes: " + item.summary.substring(0, 200),
+            //   helveticaFont,
+            //   10,
+            //   width - 100
+            // );
+            // let yPositionT = height - 80;
+
+            // for (const line of summaryLines) {
+            //   page.drawText(line, {
+            //     x: 50,
+            //     y: yPosition,
+            //     size: 12,
+            //     font: helveticaFont,
+            //     color: rgb(0, 0, 0),
+            //   });
+            //   yPositionT -= 20;
+            // }
+
+            const tableData = [
+              [1, "Customer A", "01.05.2023", "10.5", "8.2", "9.1", "7.8"],
+              [2, "Customer B", "15.06.2023", "9.3", "7.5", "8.8", "6.9"],
+              [3, "Customer C", "15.06.2023", "9.3", "7.5", "8.8", "6.9"],
+              [4, "Customer D", "15.06.2023", "9.3", "7.5", "8.8", "6.9"],
+              [5, "Customer E", "15.06.2023", "9.3", "7.5", "8.8", "6.9"],
+            ];
+            generateExcelFile(tableData, (window as any).XLSX);
+            // drawTable(page, {
+            //   x: 50,
+            //   y: tableTop,
+            //   width: width - 100,
+            //   height: 300,
+            //   rows: tableData.length + 1, // +1 for header
+            //   columns: 6,
+            //   headers: [
+            //     "CUSTOMER NAME",
+            //     "EFFECTIVE DATE",
+            //     "RED",
+            //     "SANDY",
+            //     "OMEGA",
+            //     "NCP",
+            //   ],
+            //   data: tableData,
+            //   font: helveticaFont,
+            //   headerFont: helveticaBold,
+            // });
+          }
+
+          // Save the PDF
+          // const pdfBytes = await pdfDoc.save();
+
+          // // Create download link
+          // const blob = new Blob([pdfBytes], { type: "application/pdf" });
+          // const url = URL.createObjectURL(blob);
+          // const a = document.createElement("a");
+          // a.href = url;
+          // a.download = "summary.pdf";
+          // a.textContent = "Download Summary PDF";
+          // a.className = "download-link";
+
+          // statusDiv.innerHTML = "Summary generated successfully! ";
+          // statusDiv.appendChild(a);
+          // statusDiv.style.backgroundColor = "#ddffdd";
+        } catch (error: any) {
+          console.error("Error:", error);
+          statusDiv.textContent = `Error: ${error.message}`;
+          statusDiv.style.backgroundColor = "#ffdddd";
+        } finally {
+          progressContainer.style.display = "none";
+        }
+      });
+
+      // Helper function to read file as ArrayBuffer
+      function readFileAsArrayBuffer(file: any) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsArrayBuffer(file);
+        });
+      }
+
+      // Helper function to wrap text
+      function wrapText(text: any, font: any, fontSize: any, maxWidth: any) {
+        const words = text.split(" ");
+        const lines = [];
+        let currentLine = "";
+
+        for (const word of words) {
+          const testLine = currentLine + word + " ";
+          const width = font.widthOfTextAtSize(testLine, fontSize);
+
+          if (width < maxWidth) {
+            currentLine = testLine;
+          } else {
+            lines.push(currentLine.trim());
+            currentLine = word + " ";
+          }
+        }
+
+        if (currentLine.trim().length > 0) {
+          lines.push(currentLine.trim());
+        }
+
+        return lines;
+      }
+
+      function extractDataFromPDF(data: any) {
+        // Extract company names between "To" and "From"
+        const companyNamesMatch = data.match(/To,\s*,(.+?)From/s);
+        let companyNames = [];
+
+        if (companyNamesMatch && companyNamesMatch[1]) {
+          // Split by commas and clean up each name
+          companyNames = companyNamesMatch[1]
+            .split(",,")
+            .map((name: any) => name.replace(/,/g, "").trim())
+            .filter((name: any) => name.length > 0);
+        }
+        console.log("companyNames:", companyNames);
+        const approvedByMatch = data.split("APPROVED BY");
+        const approvedByMatchSplitted = approvedByMatch[1].split(",,");
+        const approvedByName = approvedByMatchSplitted[1];
+        // Extract date
+        const approvedOn = approvedByMatchSplitted[2];
+        console.log("approvedByName:", approvedByName);
+        console.log("approvedOn:", approvedOn);
+
+        // Extract grade data
+        const gradeData = [];
+        const gradeRegex =
+          /(GRADE [AA|A|B|C|D|E|F]|SANDY [AA|A|B|C|D|E|F]),\s*,(\d+\.\d+),\s*,(\d+\.\d+),\s*,(\d+\.\d+),\s*,(\d+\.\d+)/g;
+        let match;
+        while ((match = gradeRegex.exec(data)) !== null) {
+          gradeData.push({
+            grade: match[1],
+            biji: parseFloat(match[2]),
+            tray: parseFloat(match[3]),
+            offer: parseFloat(match[4]),
+            harga: parseFloat(match[5]),
+          });
+        }
+
+        console.log("gradeData:", gradeData);
+        let grades = [];
+        gradeData.forEach((grade) => {
+          if (grade.grade.includes("GRADE")) {
+            const data = {
+              grade: "RED",
+              price: [],
+            };
+            if (grade.harga) {
+              // data.price.push({
+              //   type: 'Harga',
+              //   price: grade.harga
+              // })
+            }
+          }
+        });
+
+        // const test = {
+        //   customerName: companyNames,
+        //   effectiveDate: approvedOn,
+        //   approvedBy: approvedByName,
+        //   eggGrades: [
+        //     {
+        //       grade: "RED",
+        //       price: [
+        //         {
+        //           type: "A",
+        //           price: "3.90",
+        //         },
+        //       ],
+        //     },
+        //   ],
+        // };
+      }
+
+      function generateExcelFile(data: any, xlsx: any) {
+        // Create a new workbook
+        const wb = xlsx.utils.book_new();
+
+        // In a real implementation, you would parse the PDF content to extract this data
+        // For example:
+        // const tableData = parseTableDataFromPDF(data.content);
+
+        // Add headers to the data
+        const headers = [
+          "",
+          "CUSTOMER NAME",
+          "EFFECTIVE DATE",
+          "RED",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "", // Headers for RED
+          "SANDY",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "", // Headers for SANDY
+          "OMEGA",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "", // Headers for OMEGA
+          "NCP",
+          "",
+          "",
+          "",
+          "",
+          "", // Headers for NCP
+        ];
+
+        // Add subheaders for the categories
+        const subHeaders = [
+          "", // Empty for ID column
+          "", // Empty for Customer Name
+          "", // Empty for Date
+          "AA",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F", // Subheaders for RED
+          "AA",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F", // Subheaders for SANDY
+          "AA",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F", // Subheaders for OMEGA
+          "WC",
+          "WE",
+          "WF",
+          "WM",
+          "KC",
+          "CRACK", // Subheaders for NCP
+        ];
+        const dataWithHeaders = [headers, subHeaders, ...data];
+
+        // Create a worksheet
+        const ws = xlsx.utils.aoa_to_sheet(dataWithHeaders);
+
+        // Set column widths (width is measured in characters)
+        const colWidths = [
+          { wch: 5 }, // ID
+          { wch: 20 }, // Customer Name - 20 characters wide
+          { wch: 15 }, // Effective Date - 15 characters wide
+          { wch: 10 }, // RED - 10 characters wide
+          { wch: 10 }, // SANDY - 10 characters wide
+          { wch: 10 }, // OMEGA - 10 characters wide
+          { wch: 10 }, // NCP - 10 characters wide
+        ];
+        ws["!cols"] = colWidths;
+
+        // Merge cells for main headers that span multiple rows
+        ws["!merges"] = [
+          // Merge ID and Customer Name and Date headers into one cell
+          { s: { r: 0, c: 0 }, e: { r: 1, c: 0 } },
+          { s: { r: 0, c: 1 }, e: { r: 1, c: 1 } },
+          { s: { r: 0, c: 2 }, e: { r: 1, c: 2 } },
+          // Merge RED header cells
+          { s: { r: 0, c: 3 }, e: { r: 0, c: 9 } },
+          // Merge SANDY header cells
+          { s: { r: 0, c: 10 }, e: { r: 0, c: 16 } },
+          // Merge OMEGA header cells
+          { s: { r: 0, c: 17 }, e: { r: 0, c: 23 } },
+          // Merge NCP header cells
+          { s: { r: 0, c: 24 }, e: { r: 0, c: 29 } },
+        ];
+
+        // Add the worksheet to the workbook
+        xlsx.utils.aoa_to_sheet(data);
+
+        // Add the worksheet to the workbook
+        xlsx.utils.book_append_sheet(wb, ws, `PDF_Summary`);
+        const excelBuffer = xlsx.write(wb, { bookType: "xlsx", type: "array" });
+
+        // Create Blob and download link
+        const blob = new Blob([excelBuffer], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "pdf_summary.xlsx";
+        a.click();
+
+        // Clean up
+        URL.revokeObjectURL(url);
+
+        if (statusDiv) {
+          statusDiv.textContent = "Excel file generated successfully!";
+          statusDiv.style.backgroundColor = "#ddffdd";
+        }
+      }
+
+      function drawTable(
+        page: any,
+        {
+          x,
+          y,
+          width,
+          height,
+          rows,
+          columns,
+          headers,
+          data,
+          font,
+          fontSize = 9,
+          headerFont,
+          headerFontSize = 9,
+        }: {
+          x: number;
+          y: number;
+          width: number;
+          height: number;
+          rows: number;
+          columns: number;
+          headers: any[];
+          data: any[];
+          font: any;
+          fontSize?: number;
+          headerFont?: any;
+          headerFontSize?: number;
+        }
+      ) {
+        const { rgb } = (window as any).PDFLib;
+
+        // Calculate dimensions
+        const customerColWidth = width * 0.25; // 25% for customer name
+        const dateColWidth = width * 0.15; // 15% for date
+        const categoryWidth = (width - customerColWidth - dateColWidth) / 4; // 4 categories (RED, SANDY, etc.)
+        const gradeWidth = categoryWidth / 7; // 7 grade columns per category (AA, A, B, C, D, E, F)
+
+        const rowHeight = 30;
+        const headerHeight = 40;
+        const subHeaderHeight = 20;
+
+        // Draw main table outline
+        page.drawRectangle({
+          x,
+          y: y - height,
+          width,
+          height,
+          borderColor: rgb(0, 0, 0),
+          borderWidth: 6,
+        });
+
+        // Draw main column dividers
+        // Customer name column
+        page.drawLine({
+          start: { x: x + customerColWidth, y },
+          end: { x: x + customerColWidth, y: y - height },
+          thickness: 1,
+          color: rgb(0, 0, 0),
+        });
+
+        // Date column
+        page.drawLine({
+          start: { x: x + customerColWidth + dateColWidth, y },
+          end: { x: x + customerColWidth + dateColWidth, y: y - height },
+          thickness: 1,
+          color: rgb(0, 0, 0),
+        });
+
+        // Category dividers
+        for (let i = 1; i <= 3; i++) {
+          const xPos = x + customerColWidth + dateColWidth + categoryWidth * i;
+          page.drawLine({
+            start: { x: xPos, y },
+            end: { x: xPos, y: y - height },
+            thickness: 1,
+            color: rgb(0, 0, 0),
+          });
+        }
+
+        // Draw grade column dividers
+        const gradeHeaders = ["AA", "A", "B", "C", "D", "E", "F"];
+
+        // For each category (RED, SANDY, OMEGA, NCP)
+        for (let cat = 0; cat < 4; cat++) {
+          const catStartX =
+            x + customerColWidth + dateColWidth + categoryWidth * cat;
+
+          // Draw grade dividers
+          for (let g = 1; g <= 6; g++) {
+            // Only need 6 dividers for 7 columns
+            const gradeX = catStartX + gradeWidth * g;
+            page.drawLine({
+              start: { x: gradeX, y: y - headerHeight },
+              end: { x: gradeX, y: y - height },
+              thickness: 0.5,
+              color: rgb(0, 0, 0),
+            });
+          }
+
+          // Draw grade headers
+          for (let g = 0; g < 7; g++) {
+            page.drawText(gradeHeaders[g], {
+              x: catStartX + gradeWidth * g + gradeWidth / 2 - 4, // Center text
+              y: y - headerHeight - 15,
+              size: 8,
+              font: headerFont,
+              color: rgb(0, 0, 0),
+            });
+          }
+        }
+
+        // Draw row dividers
+        for (let i = 1; i < rows; i++) {
+          const rowY = y - headerHeight - subHeaderHeight - rowHeight * (i - 1);
+          page.drawLine({
+            start: { x, y: rowY },
+            end: { x: x + width, y: rowY },
+            thickness: 1,
+            color: rgb(0, 0, 0),
+          });
+        }
+
+        // Draw main headers
+        const mainHeaders = [
+          "CUSTOMER NAME",
+          "EFFECTIVE DATE",
+          "RED",
+          "SANDY",
+          "OMEGA",
+          "NCP",
+        ];
+
+        // Customer name
+        page.drawText(mainHeaders[0], {
+          x: x + 10,
+          y: y - 25,
+          size: headerFontSize,
+          font: headerFont,
+          color: rgb(0, 0, 0),
+        });
+
+        // Date
+        page.drawText(mainHeaders[1], {
+          x: x + customerColWidth + 10,
+          y: y - 25,
+          size: headerFontSize,
+          font: headerFont,
+          color: rgb(0, 0, 0),
+        });
+
+        // Category headers (centered)
+        for (let i = 2; i < 6; i++) {
+          const catX =
+            x + customerColWidth + dateColWidth + categoryWidth * (i - 2);
+          page.drawText(mainHeaders[i], {
+            x: catX + categoryWidth / 2 - 15, // Approximate centering
+            y: y - 25,
+            size: headerFontSize,
+            font: headerFont,
+            color: rgb(0, 0, 0),
+          });
+        }
+
+        // Draw data rows
+        data.forEach((row: any, rowIndex) => {
+          const rowY =
+            y - headerHeight - subHeaderHeight - rowHeight * rowIndex;
+
+          // Draw customer name
+          page.drawText(String(row[0]), {
+            x: x + 10,
+            y: rowY - 20,
+            size: fontSize,
+            font: font,
+            color: rgb(0, 0, 0),
+          });
+
+          // Draw date
+          page.drawText(String(row[1]), {
+            x: x + customerColWidth + 10,
+            y: rowY - 20,
+            size: fontSize,
+            font: font,
+            color: rgb(0, 0, 0),
+          });
+
+          // Draw values in appropriate grade cells (simplified)
+          // In a real implementation, you'd need to determine which grades to fill
+          if (row.length > 2) {
+            for (let i = 2; i < Math.min(row.length, 6); i++) {
+              const catIndex = i - 2;
+              const gradeIndex = 1; // Assuming we're putting values in column "A"
+
+              const valueX =
+                x +
+                customerColWidth +
+                dateColWidth +
+                categoryWidth * catIndex +
+                gradeWidth * gradeIndex +
+                5;
+
+              page.drawText(String(row[i]), {
+                x: valueX,
+                y: rowY - 20,
+                size: fontSize,
+                font: font,
+                color: rgb(0, 0, 0),
+              });
+            }
+          }
+        });
+      }
+    });
+  </script>
+
+  <style>
+    .pdf-tool {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .upload-form {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .file-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .submit-btn {
+      background-color: #4a6cf7;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #3a5ce5;
+    }
+
+    .status-area {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+
+    .progress-container {
+      margin-top: 1rem;
+      height: 20px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: #4a6cf7;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .download-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #4a6cf7;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .download-link:hover {
+      background-color: #3a5ce5;
+    }
+  </style>
+</Layout>
+
+// When using the function, update your tableData to match the format: const
+tableData = [ ["**ALL CUSTOMER**", "18.03.2025", "10.5", "8.2", "9.1", "7.8"],
+["Customer B", "15.06.2023", "9.3", "7.5", "8.8", "6.9"], ];
